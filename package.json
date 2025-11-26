@@ -1,6 +1,6 @@
 {
-  "homepage": "http://hospitoservice.github.io/hrms",
-  "name": "hospitonet-hrms",
+  "homepage": ".",
+  "name": "hrms",
   "private": true,
   "version": "0.0.0",
   "type": "module",
