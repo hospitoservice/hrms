@@ -19,20 +19,20 @@ const Payroll = () => {
         <div className="flex items-center gap-4 bg-white dark:bg-card-dark p-4 rounded-xl shadow-sm mb-4">
            <div 
              className="w-14 h-14 rounded-full bg-cover bg-center"
-             style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCewTkSQM-XDfiUSu0aksUL2r9eI-S8k3CxklZHEA3jgoVzBpl5xIrUrx6e_velxn04fmn5xSW1y8ACIF2aNM02i_eOjLdz5ddJ5F6BR_c8-T85ThnZe9-gmTW1aBM-WemY9YQJaTlT9M6eTY88i4Bstz9hDa3XKQXbAoPoC20aSPieRi9h2sgkKuoW3dwnu3WXXrrEV-p1d2Z60XbwCRpK0s1tlJO9hvTitLE6wVnbHN_cF-p42Q7yjgQ6pJHbWasEsYs_kzaMofQ")' }}
+             style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBMomu9Jk8qUuBa7xkYJAoQLnUIAWOmjqErLrwkbIL4CyX-_2pw3rx6koOuzIp0pwOd-QYt85koNeW6E2iuXGA9d7YlfDdpQYb78mevDHo0wwFF_UvzKBdUhB03PdLqA5mJ5wHI_bVDJ_1fONX8V5VQKDjYd6bxu0qkQLtd9laMiJgNhf06ByMkjItlhl1cVChlbiauqR5g6ZCsCNe5er5-43vM5rmZ88_l0nNky7a3KNbNDzDnIsJD7k1azaolTHmgDP60z-gG_mo")' }}
            ></div>
            <div>
-             <h2 className="font-bold text-text-main-light dark:text-text-main-dark">Dr. Evelyn Reed</h2>
+             <h2 className="font-bold text-text-main-light dark:text-text-main-dark">Dr. Sumedha Tiwari</h2>
              <p className="text-sm text-text-sub-light dark:text-text-sub-dark">Staff ID: DOC56789</p>
-             <p className="text-sm text-text-sub-light dark:text-text-sub-dark">Cardiothoracic Surgeon</p>
+             <p className="text-sm text-text-sub-light dark:text-text-sub-dark">Psychiatrist</p>
            </div>
         </div>
 
         {/* Latest Payslip */}
         <div className="bg-white dark:bg-card-dark rounded-xl shadow-sm p-6 mb-4 text-center border border-gray-100 dark:border-border-dark">
           <div className="flex justify-between text-sm text-text-sub-light dark:text-text-sub-dark mb-4">
-            <span>Latest Payslip: November 2023</span>
-            <span>Paid: Nov 30</span>
+            <span>Latest Payslip: October 2025</span>
+            <span>Paid: Oct 30</span>
           </div>
           <p className="text-text-sub-light dark:text-text-sub-dark mb-1">Net Pay</p>
           <h2 className="text-4xl font-bold text-green-600 dark:text-green-500 tracking-tight mb-4">$8,750.00</h2>

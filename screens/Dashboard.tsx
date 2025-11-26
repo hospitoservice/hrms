@@ -29,7 +29,7 @@ const Dashboard = () => {
           </button>
         </div>
         <h1 className="text-[28px] font-bold text-text-main-light dark:text-text-main-dark leading-tight">
-          Good Morning, Dr. Alex
+          Good Morning, Dr. Sumedha
         </h1>
       </div>
 

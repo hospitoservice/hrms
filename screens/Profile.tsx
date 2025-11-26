@@ -21,8 +21,8 @@ const Profile = () => {
           className="w-32 h-32 rounded-full bg-cover bg-center ring-4 ring-primary/20 mb-4"
           style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBMomu9Jk8qUuBa7xkYJAoQLnUIAWOmjqErLrwkbIL4CyX-_2pw3rx6koOuzIp0pwOd-QYt85koNeW6E2iuXGA9d7YlfDdpQYb78mevDHo0wwFF_UvzKBdUhB03PdLqA5mJ5wHI_bVDJ_1fONX8V5VQKDjYd6bxu0qkQLtd9laMiJgNhf06ByMkjItlhl1cVChlbiauqR5g6ZCsCNe5er5-43vM5rmZ88_l0nNky7a3KNbNDzDnIsJD7k1azaolTHmgDP60z-gG_mo")' }}
         ></div>
-        <h2 className="text-2xl font-bold text-text-main-light dark:text-text-main-dark">Dr. Elara Vance, MD</h2>
-        <p className="text-text-sub-light dark:text-text-sub-dark mt-1">ID: M-12345</p>
+        <h2 className="text-2xl font-bold text-text-main-light dark:text-text-main-dark">Dr. Sumedha Tiwari, MD</h2>
+        <p className="text-text-sub-light dark:text-text-sub-dark mt-1">ID: DOC56789</p>
       </div>
 
       <div className="px-4 space-y-6">
@@ -34,10 +34,10 @@ const Profile = () => {
           </div>
           <div className="px-4 pb-2 space-y-4">
             {[
-              ['Designation', 'Cardiologist'],
-              ['Workplace', 'City General Hospital'],
+              ['Designation', 'Psychiatrist'],
+              ['Workplace', 'SBS Hospital'],
               ['Medical License', 'MG-45892'],
-              ['Department', 'Cardiology'],
+              ['Department', 'Psychiatry'],
               ['Date of Joining', '15 Jan 2021']
             ].map(([label, value]) => (
               <div key={label} className="flex justify-between py-3 border-t border-gray-100 dark:border-border-dark">
@@ -56,8 +56,8 @@ const Profile = () => {
           </div>
           <div className="px-4 pb-2">
              {[
-               { icon: 'mail', label: 'Work Email', value: 'e.vance@cghospital.org' },
-               { icon: 'call', label: 'Work Phone', value: '(415) 555-0123' },
+               { icon: 'mail', label: 'Work Email', value: 'info@drsumedhatiwari.com' },
+               { icon: 'call', label: 'Work Phone', value: '+91 9876543210' },
                { icon: 'contact_emergency', label: 'Emergency Contact', value: 'Marcus Vance - (415) 555-0124' }
              ].map((item, idx) => (
                 <div key={idx} className="flex items-center py-4 border-t border-gray-100 dark:border-border-dark">
@@ -81,7 +81,7 @@ const Profile = () => {
             {[
               ['Date of Birth', '08 Aug 1995'],
               ['Home Address', '1234 Market St, Apt 56'],
-              ['Personal Email', 'elara.v.priv@mail.com'],
+              ['Personal Email', 'info@drsumedhatiwari.com'],
             ].map(([label, value]) => (
               <div key={label} className="flex justify-between py-3 border-t border-gray-100 dark:border-border-dark">
                 <span className="text-sm text-text-sub-light dark:text-text-sub-dark">{label}</span>
