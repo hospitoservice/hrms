@@ -16,7 +16,7 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col min-h-screen pb-24 bg-background-light dark:bg-background-dark">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-background-light dark:bg-background-dark px-4 pt-4 pb-2">
+      <div className="sticky top-0 z-20 bg-background-light dark:bg-background-dark px-4 pt-4 pb-2">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
              <div 
