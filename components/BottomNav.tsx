@@ -1,18 +1,14 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import appData from '../data/appData.json';
+
+const { bottomNav: navItems } = appData.navigation;
 
 const BottomNav = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const isActive = (path: string) => location.pathname === path;
-
-  const navItems = [
-    { name: 'Home', icon: 'dashboard', path: '/' },
-    { name: 'Appointments', icon: 'calendar_month', path: '/appointments' },
-    { name: 'Payroll', icon: 'payments', path: '/payroll' },
-    { name: 'Profile', icon: 'person', path: '/profile' },
-  ];
 
   // Don't show bottom nav on deep detail screens if desired, keeping it simple for now
   // Hiding on Apply Leave to give more screen real estate
