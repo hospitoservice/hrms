@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import appData from '../data/appData.json';
 import PayrollServiceInstance from '../service/PayrollService.js';
+import AuthService from '../service/AuthService.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -40,8 +41,6 @@ const jsonFallback: PayrollData = {
   payslipHistory:      appData.payroll.payslipHistory,
 };
 
-// User identity fields come from the shared user record (not the payroll service).
-const { user } = appData;
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -58,7 +57,7 @@ const Payroll = () => {
       try {
         // Attempt to fetch live data from the payroll microservice.
         const apiData: PayrollData = await PayrollServiceInstance.getPayrollData(
-          user.staffId
+          AuthService.getEmployeeId()
         );
         setPayroll(apiData);
         setDataSource('api');
@@ -109,19 +108,15 @@ const Payroll = () => {
 
         {/* ── Profile Header ──────────────────────────────────────────────── */}
         <div className="flex items-center gap-4 bg-white dark:bg-card-dark p-4 rounded-xl shadow-sm mb-4">
-          <div
-            className="w-14 h-14 rounded-full bg-cover bg-center"
-            style={{ backgroundImage: `url("${user.avatarLarge}")` }}
-          ></div>
+          <div className="w-14 h-14 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center shrink-0">
+            <span className="material-symbols-outlined text-gray-400 text-2xl">person</span>
+          </div>
           <div className="flex-1">
             <h2 className="font-bold text-text-main-light dark:text-text-main-dark">
-              {user.displayName}
+              {AuthService.getName()}
             </h2>
             <p className="text-sm text-text-sub-light dark:text-text-sub-dark">
-              Staff ID: {user.staffId}
-            </p>
-            <p className="text-sm text-text-sub-light dark:text-text-sub-dark">
-              {user.designation}
+              Staff ID: {AuthService.getEmployeeId()}
             </p>
           </div>
           {/* Data-source badge — helpful during development / QA */}

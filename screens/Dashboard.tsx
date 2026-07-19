@@ -1,8 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import appData from '../data/appData.json';
+import AuthService from '../service/AuthService.js';
 
-const { user, dashboard } = appData;
+const { dashboard } = appData;
 const { greetingPrefix, shift, menuItems, upcomingSchedule } = dashboard;
 
 const Dashboard = () => {
@@ -14,17 +15,16 @@ const Dashboard = () => {
       <div className="sticky top-0 z-20 bg-background-light dark:bg-background-dark px-4 pt-4 pb-2">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-             <div
-              className="w-10 h-10 rounded-full bg-cover bg-center border border-gray-200 dark:border-gray-700 shadow-sm"
-              style={{ backgroundImage: `url("${user.avatarSmall}")` }}
-            ></div>
+            <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 border border-gray-200 dark:border-gray-700 shadow-sm flex items-center justify-center">
+              <span className="material-symbols-outlined text-gray-400 text-xl">person</span>
+            </div>
           </div>
           <button className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
              <span className="material-symbols-outlined text-text-main-light dark:text-text-main-dark">notifications</span>
           </button>
         </div>
         <h1 className="text-[28px] font-bold text-text-main-light dark:text-text-main-dark leading-tight">
-          {greetingPrefix}, {user.greetingName}
+          {greetingPrefix}, {AuthService.getName()}
         </h1>
       </div>
 

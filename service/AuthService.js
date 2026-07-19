@@ -9,10 +9,11 @@
  *   /api/auth/login  →  http://localhost:9000/api/auth/login     (local dev)
  */
 
-const TOKEN_KEY      = 'authToken';
+const TOKEN_KEY       = 'authToken';
 const EMPLOYEE_ID_KEY = 'employeeId';
-const NAME_KEY       = 'employeeName';
-const ROLE_KEY       = 'employeeRole';
+const NAME_KEY        = 'employeeName';
+const ROLE_KEY        = 'employeeRole';
+const HOSPITAL_ID_KEY = 'employeeHospitalId';
 
 const AuthService = {
   // ── Login ────────────────────────────────────────────────────────────────
@@ -26,13 +27,27 @@ const AuthService = {
    * @throws {Error} with a user-facing message on failure
    */
   async login(employeeId, password) {
-    const response = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ employeeId, password }),
-    });
+    let response;
+    try {
+      response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ employeeId, password }),
+      });
+    } catch {
+      throw new Error('Cannot reach the server. Check your connection.');
+    }
 
-    const data = await response.json();
+    let data;
+    try {
+      data = await response.json();
+    } catch {
+      throw new Error(
+        response.ok
+          ? 'Unexpected server response. Please try again.'
+          : `Server error (${response.status}). Please try again.`
+      );
+    }
 
     if (!response.ok) {
       throw new Error(data.message || 'Login failed. Please try again.');
@@ -47,6 +62,7 @@ const AuthService = {
     localStorage.setItem(EMPLOYEE_ID_KEY, data.employeeId ?? employeeId);
     localStorage.setItem(NAME_KEY,        data.name       ?? '');
     localStorage.setItem(ROLE_KEY,        data.role       ?? '');
+    localStorage.setItem(HOSPITAL_ID_KEY, data.hospitalId ?? '');
 
     return data;
   },
@@ -58,6 +74,7 @@ const AuthService = {
     localStorage.removeItem(EMPLOYEE_ID_KEY);
     localStorage.removeItem(NAME_KEY);
     localStorage.removeItem(ROLE_KEY);
+    localStorage.removeItem(HOSPITAL_ID_KEY);
   },
 
   // ── Token helpers ─────────────────────────────────────────────────────────
@@ -76,6 +93,10 @@ const AuthService = {
 
   getRole() {
     return localStorage.getItem(ROLE_KEY);
+  },
+
+  getHospitalId() {
+    return localStorage.getItem(HOSPITAL_ID_KEY);
   },
 
   /**

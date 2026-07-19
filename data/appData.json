@@ -21,7 +21,7 @@
   },
 
   "dashboard": {
-    "greetingPrefix": "Good Morning",
+    "greetingPrefix": "Hello",
     "shift": {
       "isOnShift": true,
       "message": "You are currently on shift.",
@@ -30,10 +30,12 @@
     },
     "menuItems": [
       { "title": "My Profile",   "sub": "Credentials & Info", "icon": "badge",            "path": "/profile"      },
-      { "title": "Payroll",      "sub": "View pay stubs",     "icon": "payments",          "path": "/payroll"      },
-      { "title": "My Schedule",  "sub": "Shifts & Rotations", "icon": "pending_actions",   "path": "/attendance"   },
-      { "title": "Benefits",     "sub": "Health & Wellness",  "icon": "health_and_safety", "path": "/benefits"     },
       { "title": "Appointments", "sub": "Patient Bookings",   "icon": "event_note",        "path": "/appointments" },
+      { "title": "My Schedule",  "sub": "Shifts & Rotations", "icon": "pending_actions",   "path": "/schedule"     },
+      { "title": "Apply Leave",  "sub": "Request time off",   "icon": "event_busy",        "path": "/apply-leave"  },
+      { "title": "Payroll",      "sub": "View pay stubs",     "icon": "payments",          "path": "/payroll"      },
+      { "title": "Benefits",     "sub": "Health & Wellness",  "icon": "health_and_safety", "path": "/benefits"     },
+      { "title": "Register Complaint", "sub": "Report an issue", "icon": "report",         "path": "/register-complaint" },
       { "title": "On-Call Duty", "sub": "View Roster",        "icon": "medication",        "path": "#"             }
     ],
     "upcomingSchedule": [
@@ -107,7 +109,8 @@
     "leaveTypes": [
       { "value": "annual",    "label": "Annual Leave"    },
       { "value": "sick",      "label": "Sick Leave"      },
-      { "value": "emergency", "label": "Emergency Leave" }
+      { "value": "emergency", "label": "Emergency Leave" },
+      { "value": "duty",      "label": "Duty Leave"      }
     ],
     "staffingWarning": {
       "title": "Staffing Impact",
@@ -221,10 +224,11 @@
 
   "navigation": {
     "bottomNav": [
-      { "name": "Home",         "icon": "dashboard",     "path": "/"             },
-      { "name": "Appointments", "icon": "calendar_month", "path": "/appointments" },
-      { "name": "Payroll",      "icon": "payments",      "path": "/payroll"      },
-      { "name": "Profile",      "icon": "person",        "path": "/profile"      }
+      { "name": "Home",         "icon": "dashboard",       "path": "/"             },
+      { "name": "Appointments", "icon": "calendar_month",  "path": "/appointments" },
+      { "name": "Schedule",     "icon": "pending_actions", "path": "/schedule"     },
+      { "name": "Payroll",      "icon": "payments",        "path": "/payroll"      },
+      { "name": "Profile",      "icon": "person",          "path": "/profile"      }
     ]
   }
 }

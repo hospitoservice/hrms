@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import AuthService from '../service/AuthService.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -15,7 +15,9 @@ interface FieldError {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 const Login: React.FC = () => {
-  const navigate = useNavigate();
+  const navigate  = useNavigate();
+  const location  = useLocation();
+  const from      = (location.state as any)?.from?.pathname ?? '/';
 
   const [form, setForm]               = useState<FormState>({ employeeId: '', password: '' });
   const [errors, setErrors]           = useState<FieldError>({});
@@ -43,7 +45,7 @@ const Login: React.FC = () => {
     setLoading(true);
     try {
       await AuthService.login(form.employeeId, form.password);
-      navigate('/', { replace: true });
+      navigate(from, { replace: true });
     } catch (err: any) {
       setApiError(err?.message || 'Invalid credentials. Please try again.');
     } finally {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import appData from '../data/appData.json';
 import BenefitsServiceInstance from '../service/BenefitsService.js';
+import AuthService from '../service/AuthService.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -30,8 +31,6 @@ const jsonFallback: BenefitsData = {
   items:      appData.benefits.items,
 };
 
-const { user } = appData;
-
 // ─── Component ────────────────────────────────────────────────────────────────
 
 const Benefits = () => {
@@ -48,7 +47,7 @@ const Benefits = () => {
       try {
         // Attempt to fetch live data from the employee microservice.
         const apiData: BenefitsData = await BenefitsServiceInstance.getBenefits(
-          user.staffId
+          AuthService.getEmployeeId()
         );
         setBenefitsData(apiData);
         setDataSource('api');

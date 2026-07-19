@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import appData from '../data/appData.json';
 import EmployeeProfileService from '../service/EmployeeProfile.js';
 import AuthService from '../service/AuthService.js';
+import ThemeService, { Theme } from '../service/ThemeService';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -26,42 +26,50 @@ interface ProfileData {
   personalEmail: string;
 }
 
-// ─── JSON fallback ────────────────────────────────────────────────────────────
-// Seed state with local data so the screen is always immediately usable,
-// even before the network call completes or if it fails entirely.
+// ─── Initial state ────────────────────────────────────────────────────────────
+// Seed with the logged-in user's data from AuthService (name + ID are already
+// in localStorage after login). Remaining fields start empty and are filled by
+// the API call. This prevents showing a previous/hardcoded user's details while
+// the network request is in flight.
 
-const jsonFallback: ProfileData = {
-  fullName:        appData.user.fullName,
-  staffId:         appData.user.staffId,
-  avatarLarge:     appData.user.avatarLarge,
-  designation:     appData.user.designation,
-  workplace:       appData.user.workplace,
-  medicalLicense:  appData.user.medicalLicense,
-  department:      appData.user.department,
-  dateOfJoining:   appData.user.dateOfJoining,
-  workEmail:       appData.user.workEmail,
-  workPhone:       appData.user.workPhone,
-  emergencyContact: appData.user.emergencyContact,
-  dateOfBirth:     appData.user.dateOfBirth,
-  homeAddress:     appData.user.homeAddress,
-  personalEmail:   appData.user.personalEmail,
-};
+const buildInitialProfile = (): ProfileData => ({
+  fullName:        AuthService.getName()       || '',
+  staffId:         AuthService.getEmployeeId() || '',
+  avatarLarge:     '',
+  designation:     '',
+  workplace:       '',
+  medicalLicense:  '',
+  department:      '',
+  dateOfJoining:   '',
+  workEmail:       '',
+  workPhone:       '',
+  emergencyContact: '',
+  dateOfBirth:     '',
+  homeAddress:     '',
+  personalEmail:   '',
+});
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 const Profile = () => {
   const navigate = useNavigate();
 
-  // Start with JSON data so the screen renders instantly.
-  const [profile, setProfile] = useState<ProfileData>(jsonFallback);
+  const [profile, setProfile] = useState<ProfileData>(buildInitialProfile);
   const [dataSource, setDataSource] = useState<'api' | 'local'>('local');
+  const [theme, setThemeState] = useState<Theme>(ThemeService.getTheme);
+
+  const handleThemeChange = (next: Theme) => {
+    ThemeService.setTheme(next);
+    setThemeState(next);
+  };
 
   useEffect(() => {
     const loadProfile = async () => {
       try {
         // Attempt to fetch live data from the employee microservice.
+        const loggedInId = AuthService.getEmployeeId();
         const apiData: ProfileData = await EmployeeProfileService.getProfile(
-          jsonFallback.staffId
+          loggedInId
         );
         setProfile(apiData);
         setDataSource('api');
@@ -210,6 +218,44 @@ const Profile = () => {
                 </span>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Appearance */}
+        <div className="bg-white dark:bg-card-dark rounded-xl shadow-sm overflow-hidden">
+          <div className="p-4">
+            <h3 className="text-lg font-bold text-text-main-light dark:text-text-main-dark">
+              Appearance
+            </h3>
+            <p className="text-sm text-text-sub-light dark:text-text-sub-dark mt-1">
+              Choose how Hospitonet looks on this device.
+            </p>
+          </div>
+          <div className="px-4 pb-4 flex gap-3">
+            <button
+              onClick={() => handleThemeChange('light')}
+              aria-pressed={theme === 'light'}
+              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg font-semibold text-sm border transition-colors ${
+                theme === 'light'
+                  ? 'bg-primary/10 border-primary text-primary'
+                  : 'border-gray-200 dark:border-border-dark text-text-sub-light dark:text-text-sub-dark hover:bg-gray-50 dark:hover:bg-gray-800'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[20px]">light_mode</span>
+              Light
+            </button>
+            <button
+              onClick={() => handleThemeChange('dark')}
+              aria-pressed={theme === 'dark'}
+              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg font-semibold text-sm border transition-colors ${
+                theme === 'dark'
+                  ? 'bg-primary/10 border-primary text-primary'
+                  : 'border-gray-200 dark:border-border-dark text-text-sub-light dark:text-text-sub-dark hover:bg-gray-50 dark:hover:bg-gray-800'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[20px]">dark_mode</span>
+              Dark
+            </button>
           </div>
         </div>
 

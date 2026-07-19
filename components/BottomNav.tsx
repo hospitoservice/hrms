@@ -11,12 +11,12 @@ const BottomNav = () => {
   const isActive = (path: string) => location.pathname === path;
 
   // Don't show bottom nav on deep detail screens if desired, keeping it simple for now
-  // Hiding on Apply Leave to give more screen real estate
-  if (location.pathname === '/apply-leave') return null;
+  // Hiding on Apply Leave / Leave History to give more screen real estate
+  if (location.pathname === '/apply-leave' || location.pathname === '/leave-history' || location.pathname === '/register-complaint') return null;
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 h-20 bg-white/90 dark:bg-card-dark/95 backdrop-blur-md border-t border-gray-200 dark:border-border-dark z-50">
-      <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
+      <div className="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
         {navItems.map((item) => (
           <button
             key={item.name}

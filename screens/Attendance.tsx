@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import appData from '../data/appData.json';
 import AttendanceServiceInstance from '../service/AttendanceService.js';
+import AuthService from '../service/AuthService.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -41,7 +42,6 @@ const jsonFallback: AttendanceData = {
 
 // Tabs are static UI labels — they don't come from the API.
 const { tabs } = appData.attendance;
-const { user } = appData;
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -59,7 +59,7 @@ const Attendance = () => {
         // Attempt to fetch live data from the employee microservice.
         // No month/year passed — service defaults to the current month.
         const apiData: AttendanceData = await AttendanceServiceInstance.getAttendance(
-          user.staffId
+          AuthService.getEmployeeId()
         );
         setAttendance(apiData);
         setDataSource('api');
@@ -96,8 +96,8 @@ const Attendance = () => {
             </span>
           )}
         </div>
-        <div className="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
-          <img src={user.avatarLarge} alt="User" className="w-full h-full object-cover" />
+        <div className="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+          <span className="material-symbols-outlined text-gray-400 text-lg">person</span>
         </div>
       </div>
 
@@ -221,7 +221,10 @@ const Attendance = () => {
             <span className="material-symbols-outlined">medical_services</span>
             Apply Medical Leave
           </button>
-          <button className="flex items-center justify-center gap-2 py-3 rounded-lg border border-gray-300 dark:border-gray-600 text-text-sub-light dark:text-text-sub-dark font-semibold hover:bg-gray-100 dark:hover:bg-card-dark transition-colors">
+          <button
+            onClick={() => navigate('/apply-leave', { state: { leaveType: 'duty' } })}
+            className="flex items-center justify-center gap-2 py-3 rounded-lg border border-gray-300 dark:border-gray-600 text-text-sub-light dark:text-text-sub-dark font-semibold hover:bg-gray-100 dark:hover:bg-card-dark transition-colors"
+          >
             <span className="material-symbols-outlined">work</span>
             Apply Duty Leave
           </button>
