@@ -7,6 +7,7 @@ import Attendance   from './screens/Attendance';
 import ApplyLeave   from './screens/ApplyLeave';
 import LeaveHistory from './screens/LeaveHistory';
 import RegisterComplaint from './screens/RegisterComplaint';
+import ComplaintHistory  from './screens/ComplaintHistory';
 import Payroll      from './screens/Payroll';
 import Benefits     from './screens/Benefits';
 import Appointments      from './screens/Appointments';
@@ -38,6 +39,7 @@ const AppShell: React.FC = () => {
   const hideNav  = location.pathname === '/login'
     || location.pathname === '/leave-history'
     || location.pathname === '/register-complaint'
+    || location.pathname === '/complaint-history'
     || location.pathname.startsWith('/appointments/')
     || location.pathname.startsWith('/schedule/');
 
@@ -52,6 +54,7 @@ const AppShell: React.FC = () => {
         <Route path="/apply-leave" element={<PrivateRoute><ApplyLeave />  </PrivateRoute>} />
         <Route path="/leave-history" element={<PrivateRoute><LeaveHistory /></PrivateRoute>} />
         <Route path="/register-complaint" element={<PrivateRoute><RegisterComplaint /></PrivateRoute>} />
+        <Route path="/complaint-history"  element={<PrivateRoute><ComplaintHistory /></PrivateRoute>} />
         <Route path="/payroll"     element={<PrivateRoute><Payroll />     </PrivateRoute>} />
         <Route path="/benefits"    element={<PrivateRoute><Benefits />    </PrivateRoute>} />
         <Route path="/appointments"     element={<PrivateRoute><Appointments />    </PrivateRoute>} />

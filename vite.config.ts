@@ -15,6 +15,14 @@ export default defineConfig(({ mode }) => {
     const authServiceTarget =
       env.VITE_AUTH_PROXY_TARGET || 'http://localhost:9000';
 
+    // Appointment service proxy target (port 8080).
+    const appointmentServiceTarget =
+      env.VITE_APPOINTMENT_PROXY_TARGET || 'http://localhost:8080';
+
+    // Hospital service proxy target (port 8100).
+    const hospitalServiceTarget =
+      env.VITE_HOSPITAL_PROXY_TARGET || 'http://localhost:8100';
+
     return {
       server: {
         port: 3000,
@@ -34,6 +42,17 @@ export default defineConfig(({ mode }) => {
             target: authServiceTarget,
             changeOrigin: true,
             secure: false,
+            headers: { origin: 'http://localhost:3002' },
+          },
+
+          // ── Hospital service (port 8100) ───────────────────────────────────
+          // MUST be listed before the broader /api rule so that Vite matches
+          // /api/complaints before /api/employees/...
+          '/api/complaints': {
+            target: hospitalServiceTarget,
+            changeOrigin: true,
+            secure: false,
+            headers: { origin: 'http://localhost:3002' },
           },
 
           // ── Employee service (port 8082) ───────────────────────────────────
@@ -42,6 +61,17 @@ export default defineConfig(({ mode }) => {
             target: employeeServiceTarget,
             changeOrigin: true,
             secure: false,
+            headers: { origin: 'http://localhost:3002' },
+          },
+
+          // ── Appointment service (port 8080) ────────────────────────────────
+          // MUST be listed after /api/auth so it does not intercept auth calls.
+          '/appointment': {
+            target: appointmentServiceTarget,
+            changeOrigin: true,
+            secure: false,
+            rewrite: (path: string) => path.replace(/^\/appointment/, ''),
+            headers: { origin: 'http://localhost:3002' },
           },
         },
       },

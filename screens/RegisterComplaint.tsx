@@ -65,6 +65,18 @@ const RegisterComplaint = () => {
       </div>
 
       <main className="flex-1 p-4 space-y-6">
+        {/* Previous Complaints */}
+        <button
+          onClick={() => navigate('/complaint-history')}
+          className="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-gray-200 dark:border-border-dark bg-white dark:bg-card-dark hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+        >
+          <span className="flex items-center gap-2 font-semibold text-text-main-light dark:text-text-main-dark">
+            <span className="material-symbols-outlined text-primary">history</span>
+            Previous Complaints
+          </span>
+          <span className="material-symbols-outlined text-text-sub-light dark:text-text-sub-dark">chevron_right</span>
+        </button>
+
         <div className="space-y-4">
           <div className="space-y-2">
             <label className="text-sm font-medium text-text-main-light dark:text-text-main-dark">Subject</label>
